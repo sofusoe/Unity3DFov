@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
-[ExecuteInEditMode]
 public class LineOfSightVision : MonoBehaviour
 {
     
@@ -46,7 +45,8 @@ public class LineOfSightVision : MonoBehaviour
                 }                
             }
         }
-        LOSMeshFilter.mesh = CreateMeshFromPointLines(pointLines);     
+        LOSMeshFilter.mesh = CreateMeshFromPointLines(pointLines);
+        DynamicGI.SetEmissive(GetComponent<MeshRenderer>(), Color.green);
     }
 
     List<Vector3> GetPointLine(Vector3 origin, Vector3 direction, float maxDist) {
@@ -202,6 +202,9 @@ public class LineOfSightVision : MonoBehaviour
     }
 
     void OnDrawGizmos() {
+        if(meshDraw == null) {
+            return;
+        }
         for(int i = 0; i < meshDraw.vertices.Length; i++) {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(meshDraw.vertices[i] + transform.position, 0.05f);
