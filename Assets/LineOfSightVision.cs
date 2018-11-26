@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
+[ExecuteInEditMode]
 public class LineOfSightVision : MonoBehaviour
 {
     
@@ -167,9 +168,9 @@ public class LineOfSightVision : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = triangles;
 
-        mesh.RecalculateBounds();
-        mesh.RecalculateNormals();
-        mesh.RecalculateTangents();
+        //mesh.RecalculateBounds();
+        //mesh.RecalculateNormals();
+        //mesh.RecalculateTangents();
 
         return mesh;
     }
@@ -202,7 +203,7 @@ public class LineOfSightVision : MonoBehaviour
     }
 
     void OnDrawGizmos() {
-        if(meshDraw == null) {
+        if(!DrawDebugLines || meshDraw == null) {
             return;
         }
         for(int i = 0; i < meshDraw.vertices.Length; i++) {
